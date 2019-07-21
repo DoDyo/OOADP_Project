@@ -16,7 +16,7 @@ router.get('/saveForm', ensureAuthenticated, (req, res) => {
             status: "pending"
         },
         order: [
-            ['itemCode', 'ASC']
+            ['itemName', 'ASC']
         ],
         raw: true
     }).then((forms) => {
@@ -34,6 +34,8 @@ router.get('/showsendForm', ensureAuthenticated, (req, res) => {
     });
 });
 router.post('/sendForm', ensureAuthenticated, (req, res) => {
+    let itemName = req.body.itemName;
+    let price = req.body.price;
     let itemCode = req.body.itemCode;
     let description = req.body.description.slice(0, 1999);
     let quantity = req.body.quantity;
@@ -46,6 +48,8 @@ router.post('/sendForm', ensureAuthenticated, (req, res) => {
 
 
     Form.create({
+        itemName,
+        price,
         itemCode,
         description,
         quantity,
@@ -72,6 +76,8 @@ router.get('/saveForminDraft/:id', ensureAuthenticated, (req, res) => {
         }
     }).then((form) => {
         if (form) {
+            let itemName =form.itemName;
+            let price =form.price;
             let itemCode = form.itemCode;
             let description = form.description;
             let quantity = form.quantity;
@@ -81,6 +87,8 @@ router.get('/saveForminDraft/:id', ensureAuthenticated, (req, res) => {
             let status = "draft";
 
             Form.update({
+                itemName,
+                price,
                 itemCode,
                 description,
                 quantity,
@@ -135,6 +143,8 @@ router.get('/retrieveForm/:id', ensureAuthenticated, (req, res) => {
         }
     }).then((form) => {
         if (form) {
+            let itemName = form.itemName;
+            let price = form.price;
             let itemCode = form.itemCode;
             let description = form.description;
             let quantity = form.quantity;
@@ -144,6 +154,8 @@ router.get('/retrieveForm/:id', ensureAuthenticated, (req, res) => {
             let status = "pending";
 
             Form.update({
+                itemName,
+                price,
                 itemCode,
                 description,
                 quantity,
@@ -219,7 +231,7 @@ router.get("/search/ajax/:query", ensureAuthenticated, (req, res) => {
             itemCode: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col("itemCode")), 'LIKE', '%' + query + '%')
         },
         order: [
-            ['itemCode', 'ASC']
+            ['itemName', 'ASC']
         ],
         raw: true
     }).then((forms) => {

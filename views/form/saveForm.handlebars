@@ -7,48 +7,63 @@
 	<div class="card card-body">
 		<h3 class="text-primary">Items</h3>
 		{{#each forms}}
-
-
 		<div class="col-sm-12 col-md-12 col-lg-8">
 			<div class="row">
 				<div class="col-sm-12 col-md-6 col-lg-3">
-					<p class="font-italic">Item Code</p>
+					<p class="font-italic">Item Name</p>
 					<p class="text-info">
-						{{ itemCode}}
+						{{ itemName}}
 					</p>
 				</div>
-				<div class="col-sm-12 col-md-6 col-lg-4">
-					<p class="font-italic">Description</p>
-					<p class="text-info">
-						{{ description}}
-					</p>
-				</div>
-				<div class="col-sm-12 col-md-6 col-lg-2">
-					<p class="font-italic">Quantity</p>
-					<p class="text-info">{{quantity}}</p>
-				</div>
-				<div class="col-sm-12 col-md-6 col-lg-3">
-					<p class="font-italic">Date of Delivery</p>
-					<p class="text-info">{{formatDate dateofDelivery 'DD MMM YYYY'}}</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12 col-md-6 col-lg-10">
-					<p class="font-italic">Reference Number</p>
-					<p class="text-info">{{referenceNo}}</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-12 col-md-6 col-lg-2">
+				<div class="col-sm-12 col-md-12 col-lg-8">
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-3">
+							<p class="font-italic">Price</p>
+							<p class="text-info">
+								{{ price}}
+							</p>
+						</div>
 
-			<a href="/form/saveForminDraft/{{id}}" class="card-link" data-toggle="confirmation"
-				data-title="Confirm delete?">
-				<i class="far fa-trash-alt"></i>
-				Delete
-			</a>
-		</div>
+						<div class="col-sm-12 col-md-12 col-lg-8">
+							<div class="row">
+								<div class="col-sm-12 col-md-6 col-lg-3">
+									<p class="font-italic">Item Code</p>
+									<p class="text-info">
+										{{ itemCode}}
+									</p>
+								</div>
+								<div class="col-sm-12 col-md-6 col-lg-4">
+									<p class="font-italic">Description</p>
+									<p class="text-info">
+										{{ description}}
+									</p>
+								</div>
+								<div class="col-sm-12 col-md-6 col-lg-2">
+									<p class="font-italic">Quantity</p>
+									<p class="text-info">{{quantity}}</p>
+								</div>
+								<div class="col-sm-12 col-md-6 col-lg-3">
+									<p class="font-italic">Date of Delivery</p>
+									<p class="text-info">{{formatDate dateofDelivery 'DD MMM YYYY'}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-6 col-lg-10">
+									<p class="font-italic">Reference Number</p>
+									<p class="text-info">{{referenceNo}}</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-6 col-lg-2">
 
-		{{!-- <div class="accordion" id="storyAccordion{{id}}">
+							<a href="/form/saveForminDraft/{{id}}" class="card-link" data-toggle="confirmation"
+								data-title="Confirm delete?">
+								<i class="far fa-trash-alt"></i>
+								Delete
+							</a>
+						</div>
+
+						{{!-- <div class="accordion" id="storyAccordion{{id}}">
 			<div class="card-header" id="headingOne{{id}}">
 				<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{id}}"
 					aria-expanded="false" aria-controls="collapseOne{{id}}">
@@ -65,19 +80,19 @@
 			</div>
 		</div> --}}
 
-	</div>
-	<script>
-		$(document).ready(function () {
-			$("#search").click(function () {
-				var query = $("#query").val();
-				$.ajax({
-					url: "/video/search/ajax/" + query,
-					type: "GET",
-					success: function (data) {
-						var forms = data.forms;
-						$("#card").html("");
-						$.each(forms, function (index, form) {
-							var row = `
+					</div>
+					<script>
+						$(document).ready(function () {
+							$("#search").click(function () {
+								var query = $("#query").val();
+								$.ajax({
+									url: "/video/search/ajax/" + query,
+									type: "GET",
+									success: function (data) {
+										var forms = data.forms;
+										$("#card").html("");
+										$.each(forms, function (index, form) {
+											var row = `
 							<div class="card-header">
 								<h5 class="card-title">${form.itemCode}</h5>
 							</div>
@@ -147,20 +162,20 @@
 							</div>
 	
 							`
-							$("#card").append(row);
+											$("#card").append(row);
+										})
+									}
+								})
+							})
 						})
-					}
-				})
-			})
-		})
-	</script>
+					</script>
 
 
 
 
-	{{/each}}
-</div>
-{{else}}
-<h3>No form created</h3>
-{{/if}}
-</div>
+					{{/each}}
+				</div>
+				{{else}}
+				<h3>No form created</h3>
+				{{/if}}
+			</div>
