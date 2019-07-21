@@ -1,0 +1,59 @@
+<!--.col-	.col-sm-	.col-md-	.col-lg-	.col-xl- -->
+
+
+ <div class="container">
+	{{#if forms}}
+	<div class="card card-body">
+		<h3 class="text-primary">Item</h3>
+		{{#each forms}}
+
+
+	<div class="col-sm-12 col-md-12 col-lg-8">
+		<div class="row"> {{!-- subtitles, language... --}}
+			<div class="col-sm-12 col-md-6 col-lg-3">
+				<p class="font-italic">Item Code</p>
+				<p class="text-info">
+					{{ itemCode}}
+				</p>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-4">
+				<p class="font-italic">Description</p>
+				<p class="text-info">
+					{{ description}}
+				</p>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-2">
+				<p class="font-italic">Quantity</p>
+				<p class="text-info">{{quantity}}</p>
+			</div>
+			<div class="col-sm-12 col-md-6 col-lg-3">
+				<p class="font-italic">Date of Delivery</p>
+				<p class="text-info">{{formatDate dateofDelivery 'DD MMM YYYY'}}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-6 col-lg-10">
+				<p class="font-italic">Reference Number</p>
+				<p class="text-info">{{referenceNo}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12 col-md-6 col-lg-2">
+		
+		<a href="/form/retrieveForm/{{id}}" class="card-link" data-toggle="confirmation" data-title="Recover?">
+			
+			Recover
+		</a>
+	</div>
+	
+</div>
+
+
+
+		{{/each}}
+	</div>
+	{{else}}
+	<h3>Nothing Here..:D</h3>
+	{{/if}}
+</div> 
+

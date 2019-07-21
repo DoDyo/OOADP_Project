@@ -1,0 +1,160 @@
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper
+{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    padding: 0 20px;
+}
+.item-form
+{
+    max-width: 550px;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.8);
+    padding: 30px;
+    border-radius: 5px;
+    display: flex;
+    box-shadow: 0 0 10px rgba(0,0,0,0.13);
+
+  
+}
+
+.input-fields
+{
+    display: flex;
+    flex-direction: column;
+    margin-right: 4%;
+
+}
+
+.input-fields,
+.descr
+{
+    width: 48%;
+
+}
+
+.input-fields .input,
+.descr textarea
+{
+    margin: 10px 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #c5ecfd;
+    padding: 10px;
+    color: #c5ecfd;
+    width: 100%;
+}
+.descr textarea
+{
+    height: 212px;
+
+}
+
+::-webkit-input-placeholder
+{
+    color:#c5ecfd;
+}
+
+::-moz-input-placeholder
+{
+    color:#c5ecfd;
+}
+
+::-ms-input-placeholder
+{
+    color:#c5ecfd;
+}
+
+.btn
+{
+    background: #39b7dd;
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+
+}
+
+@media screen and (max-width: 600px)
+{
+    .item-form
+    {
+        flex: column;
+    }
+    .descr textarea
+    {
+        height: 80px;
+    }
+    .input-fields
+    {
+        width:100%;
+    }
+}
+
+.navibar
+{
+    background-color:#f4b042;
+    color: whitesmoke;
+    font-size:1.2em;
+    position: fixed;
+    width:100%;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
+header h1
+{
+    font-family: 'Times New Roman', Times, serif;
+    color: whitesmoke;
+}
+
+nav{
+	
+	list-style-type: none;
+	padding:0px;
+	display:inline;
+	text-align: center;
+	margin-left: 780px;
+}
+
+nav a#chosen{
+	float: none;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 10px;
+	background-color:#f4b042;
+	font-family: arial;
+	list-style-type: none;
+	width: 50%;
+	text-align: right;
+	position: relative;
+	right: 20 px;
+	bottom: 50 px;
+}
+nav a#chosen{
+	font-size: 0.6em;
+	border-radius: 5px;
+	padding: 9px;
+}
+
+nav a#chosen:hover{
+	color: black;
+	background-color: whitesmoke;
+}
+#br1{
+	line-height: 160px;
+}

@@ -1,0 +1,166 @@
+<!--.col-	.col-sm-	.col-md-	.col-lg-	.col-xl- -->
+
+<input id="query"></input>
+<input id="search" type="button" value="search" />
+<div class="container">
+	{{#if forms}}
+	<div class="card card-body">
+		<h3 class="text-primary">Items</h3>
+		{{#each forms}}
+
+
+		<div class="col-sm-12 col-md-12 col-lg-8">
+			<div class="row">
+				<div class="col-sm-12 col-md-6 col-lg-3">
+					<p class="font-italic">Item Code</p>
+					<p class="text-info">
+						{{ itemCode}}
+					</p>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-4">
+					<p class="font-italic">Description</p>
+					<p class="text-info">
+						{{ description}}
+					</p>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-2">
+					<p class="font-italic">Quantity</p>
+					<p class="text-info">{{quantity}}</p>
+				</div>
+				<div class="col-sm-12 col-md-6 col-lg-3">
+					<p class="font-italic">Date of Delivery</p>
+					<p class="text-info">{{formatDate dateofDelivery 'DD MMM YYYY'}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-6 col-lg-10">
+					<p class="font-italic">Reference Number</p>
+					<p class="text-info">{{referenceNo}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-2">
+
+			<a href="/form/saveForminDraft/{{id}}" class="card-link" data-toggle="confirmation"
+				data-title="Confirm delete?">
+				<i class="far fa-trash-alt"></i>
+				Delete
+			</a>
+		</div>
+
+		{{!-- <div class="accordion" id="storyAccordion{{id}}">
+			<div class="card-header" id="headingOne{{id}}">
+				<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{id}}"
+					aria-expanded="false" aria-controls="collapseOne{{id}}">
+					itemCode<i class="fas fa-chevron-down"></i>
+				</button>
+
+			</div>
+
+			<div id="collapseOne{{id}}" class="collapse" aria-labelledby="headingOne{{id}}"
+				data-parent="#storyAccordion{{id}}">
+				<div class="card-body">
+					{{itemCode}}
+				</div>
+			</div>
+		</div> --}}
+
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#search").click(function () {
+				var query = $("#query").val();
+				$.ajax({
+					url: "/video/search/ajax/" + query,
+					type: "GET",
+					success: function (data) {
+						var forms = data.forms;
+						$("#card").html("");
+						$.each(forms, function (index, form) {
+							var row = `
+							<div class="card-header">
+								<h5 class="card-title">${form.itemCode}</h5>
+							</div>
+							<div class="card-body">
+								{{!-- Practical 09 Exercise 02 --}}
+								<div class="row">
+									<div class="col-sm-12 col-md-12 col-lg-2">
+										<a href="${form.posterURL}" data-title="${form.itemCode}" data-toggle="lightbox">
+											<img src="${form.posterURL}" alt="Poster unavailable" class="img-thumbnail img-fluid">
+										</a>
+									</div>
+									<div class="col-sm-12 col-md-12 col-lg-8">
+										<div class="row">
+											<div class="col-sm-12 col-md-6 col-lg-3">
+												<p class="font-italic">Description</p>
+												<p class="text-info">
+													${form.description}
+												</p>
+											</div>
+											<div class="col-sm-12 col-md-6 col-lg-4">
+												<p class="font-italic">Quantity</p>
+												<p class="text-info">
+													${form.quantity}
+												</p>
+											</div>
+											<div class="col-sm-12 col-md-6 col-lg-2">
+												<p class="font-italic">Reference</p>
+												<p class="text-info">${form.referenceNo}</p>
+											</div>
+											<div class="col-sm-12 col-md-6 col-lg-3">
+												<p class="font-italic">Date of Delivery</p>
+												<p class="text-info">${form.dateofDelivery}</p>
+											</div>
+										</div>
+										
+									</div>
+									<div class="col-sm-12 col-md-6 col-lg-2">
+										<p class="font-italic"></p>
+										<a href="/video/edit/${form.id}" class="card-link">
+											<i class="fas fa-pencil-alt"></i>
+											Edit
+										</a>
+										<a href="/video/delete/${form.id}" class="card-link" data-toggle="confirmation"
+											data-title="Confirm delete?">
+											<i class="far fa-trash-alt"></i>
+											Delete
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion" id="storyAccordion${form.id}">
+								<div class="card-header" id="headingOne${form.id}">
+									<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne${video.id}"
+										aria-expanded="false" aria-controls="collapseOne${form.id}">
+										Story<i class="fas fa-chevron-down"></i>
+									</button>
+
+								</div>
+
+								<div id="collapseOne${form.id}" class="collapse" aria-labelledby="headingOne${form.id}"
+									data-parent="#storyAccordion${form.id}">
+									<div class="card-body">
+										${form.description}
+									</div>
+								</div>
+							</div>
+	
+							`
+							$("#card").append(row);
+						})
+					}
+				})
+			})
+		})
+	</script>
+
+
+
+
+	{{/each}}
+</div>
+{{else}}
+<h3>No form created</h3>
+{{/if}}
+</div>
