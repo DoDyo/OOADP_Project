@@ -27,7 +27,7 @@ const Form = db.define('form', {
     },
     posterURL:{
 
-        type: Sequelize.STRING
+        type: Sequelize.STRING(512)
     },
     status: {
         type: Sequelize.STRING

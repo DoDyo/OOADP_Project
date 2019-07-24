@@ -1,6 +1,7 @@
 const mySQLDB = require('./DBConfig');
 const user = require('../models/M_User');
 const form = require('../models/Form');
+const envelope = require('../models/envelope')
 // If drop is true, all existing tables are dropped and recreated
 const setUpDB = (drop) => {
     mySQLDB.authenticate()
@@ -14,6 +15,15 @@ const setUpDB = (drop) => {
             in form.
             */
             user.hasMany(form);
+            user.hasMany(envelope, {
+                foreignKey : 'm_userID'
+            });
+
+          
+                
+            envelope.belongsTo(user,{
+                foreignKey: 'm_userID'
+            });
             mySQLDB.sync({ // Creates table if none exists
                 force: drop
             }).then(() => {

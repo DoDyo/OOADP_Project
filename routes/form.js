@@ -216,10 +216,10 @@ const Sequelize = require('sequelize');
 
 router.get("/search/ajax/:query", ensureAuthenticated, (req, res) => {
     let query = req.params.query;
-    Video.findAll({ // select * from video where userid = ... and title like '%dark%';
+    Form.findAll({ // select * from video where userid = ... and title like '%dark%';
         where : {
             userId: req.user.id,
-            itemCode: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col("itemCode")), 'LIKE', '%' + query + '%')
+            itemCode: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col("itemName")), 'LIKE', '%' + query + '%')
         },
         order: [
             ['itemName', 'ASC']
