@@ -82,6 +82,7 @@ router.get('/saveForminDraft/:id', ensureAuthenticated, (req, res) => {
             let description = form.description;
             let quantity = form.quantity;
             let referenceNo = form.referenceNo;
+            let posterURL = form.posterURL;
             let dateofDelivery = moment(form.dateofDelivery, 'DD/MM/YYYY')
             let userId = req.user.id;
             let status = "draft";
@@ -93,6 +94,7 @@ router.get('/saveForminDraft/:id', ensureAuthenticated, (req, res) => {
                 description,
                 quantity,
                 referenceNo,
+                posterURL,
                 dateofDelivery,
                 status,
                 userId
@@ -111,27 +113,32 @@ router.get('/saveForminDraft/:id', ensureAuthenticated, (req, res) => {
     })
 
 
-    // Form.update({
-    //     itemCode,
-    //     description,
-    //     quantity,
-    //     referenceNo,
-    //     dateofDelivery,
-    //     status,
-    //     userId
 
-    // },{
-    //     where:{
-    //         id : FormID
-
-    //     }
-    // }).then(() =>{
-    //     res.redirect('form/trash');
-
-    // }).catch(err => console.log(err));
 
 
 });
+
+
+// Practical 10 Activity 02
+// Upload poster
+router.post('/upload', ensureAuthenticated, (req, res) => {
+    // Creates user id directory for upload if not exist
+    if (!fs.existsSync('./public/uploads/' + req.user.id)) {
+        fs.mkdirSync('./public/uploads/' + req.user.id);
+    }
+
+    upload(req, res, (err) => {
+        if (err) {
+            res.json({ file: '/img/no-image.jpg', err: err });
+        } else {
+            if (req.file === undefined) {
+                res.json({ file: '/img/no-image.jpg', err: err });
+            } else {
+                res.json({ file: `/uploads/${req.user.id}/${req.file.filename}` });
+            }
+        }
+    });
+})
 
 router.get('/retrieveForm/:id', ensureAuthenticated, (req, res) => {
 
@@ -149,6 +156,7 @@ router.get('/retrieveForm/:id', ensureAuthenticated, (req, res) => {
             let description = form.description;
             let quantity = form.quantity;
             let referenceNo = form.referenceNo;
+            let posterURL = form.posterURL;
             let dateofDelivery = moment(form.dateofDelivery, 'DD/MM/YYYY')
             let userId = req.user.id;
             let status = "pending";
@@ -160,6 +168,7 @@ router.get('/retrieveForm/:id', ensureAuthenticated, (req, res) => {
                 description,
                 quantity,
                 referenceNo,
+                posterURL,
                 dateofDelivery,
                 status,
                 userId
@@ -188,7 +197,7 @@ router.get('/trash', ensureAuthenticated, (req, res) => {
             status: "draft"
         },
         order: [
-            ['itemCode', 'ASC']
+            ['itemName', 'ASC']
         ],
         raw: true
     }).then((forms) => {
@@ -201,24 +210,6 @@ router.get('/trash', ensureAuthenticated, (req, res) => {
 });
 
 
-router.post('/upload', ensureAuthenticated, (req, res) => {
-    // Creates user id directory for upload if not exist
-    if (!fs.existsSync('./public/uploads/' + req.user.id)) {
-        fs.mkdirSync('./public/uploads/' + req.user.id);
-    }
-
-    upload(req, res, (err) => {
-        if (err) {
-            res.json({ file: '/img/no-image.jpg', err: err });
-        } else {
-            if (req.file === undefined) {
-                res.json({ file: '/img/no-image.jpg', err: err });
-            } else {
-                res.json({ file: `/uploads/${req.user.id}/${req.file.filename}` });
-            }
-        }
-    });
-})
 
 const Sequelize = require('sequelize');
 
@@ -246,6 +237,27 @@ router.get('/search', ensureAuthenticated, (req, res) => {
     res.render('form/saveForm', {});
 })
 
+
+// Practical 10 Activity 02
+// Upload poster
+router.post('/upload', ensureAuthenticated, (req, res) => {
+    // Creates user id directory for upload if not exist
+    if (!fs.existsSync('./public/uploads/' + req.user.id)) {
+        fs.mkdirSync('./public/uploads/' + req.user.id);
+    }
+
+    upload(req, res, (err) => {
+        if (err) {
+            res.json({ file: '/img/no-image.jpg', err: err });
+        } else {
+            if (req.file === undefined) {
+                res.json({ file: '/img/no-image.jpg', err: err });
+            } else {
+                res.json({ file: `/uploads/${req.user.id}/${req.file.filename}` });
+            }
+        }
+    });
+})
 
 
 module.exports = router;
