@@ -4,11 +4,15 @@ const db = require('../config/DBConfig');
 Note that Sequelize automatically pleuralizes the entity name as the table name
 */
 const Form = db.define('form', {
+
+    // merchant:{
+    //     type:Sequelize.STRING
+    // },
     itemName:{
         type:Sequelize.STRING
     },
     price:{
-       type:Sequelize.DECIMAL
+       type:Sequelize.STRING
     },
     itemCode: {
         type: Sequelize.STRING
